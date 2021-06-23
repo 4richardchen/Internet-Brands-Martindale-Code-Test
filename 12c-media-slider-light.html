@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/main.css" rel="stylesheet">
+    <title>12c: Media Slider</title>
+  </head>
+  <body class="light">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="title mb-3">Title Text 2 (Module Title)</div>
+          <div class="subtitle my-2">Caption or Subtitle of Module</div>
+        </div>
+        <div class="col-lg-5">
+          <div class="flexslider">
+            <ul class="slides">
+              <li>
+                <img src="flexslider/demo/images/kitchen_adventurer_caramel.jpg" alt="caramel" />
+              </li>
+              <li>
+                <img src="flexslider/demo/images/kitchen_adventurer_cheesecake_brownie.jpg" alt="brownie" />
+              </li>
+              <li>
+                <img src="flexslider/demo/images/kitchen_adventurer_donut.jpg" alt="donut" />
+              </li>
+            </ul>
+           </div>
+        </div>
+        <div class="content col-lg-7">
+          <div class="title mt-5 mb-1">Content Title</div>
+          <div class="subtitle my-1">Content Subtitle</div>
+          <div class="we-hold-these-truths mt-3 mb-2">We hold these truths to be self-evident, that all men are created equal, that they are endowed by their Creator with certain unalienable Rights, that among these are Life, Liberty and the pursuit of Happiness.</div>
+          <button class="my-4 p-0">TEST BUTTON</button>
+          <div class="custom-navigation position-relative">
+            <a href="#flexslider-prev" class="flex-prev position-absolute start-0">&#x3008;</a>
+            <div class="custom-controls-container position-absolute start-50 translate-middle"></div>
+            <a href="#flexslider-next" class="flex-next position-absolute end-0">&#x3009;</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  <script src="jquery.1.11.1.min.js"></script>
+  <script>window.jQuery</script>
+  <script defer src="flexslider/demo/js/jquery.flexslider.js"></script>
+  <script type="text/javascript">
+    $(window).load(function(){
+      $('.flexslider').flexslider({
+        animation: "slide",
+        controlsContainer: $(".custom-controls-container"),
+        customDirectionNav: $(".custom-navigation a"),
+        start: function(slider){
+          $('body').removeClass('loading');
+        }
+      });
+    });
+  </script>
+  </body>
+</html>

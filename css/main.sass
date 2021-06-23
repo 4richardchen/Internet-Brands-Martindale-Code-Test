@@ -1,0 +1,135 @@
+/* sass instead of scss to reduce overhead, ease readability
+ * Override vars then output new css to meet new design
+ * 2 space indent as is an ever more popular choice */
+@use 'sass:map'
+
+/* Override vars to match design
+ * sass maps don't support multi-line thus 1-liners */
+$grid-breakpoints: ( 'xs': 0, 'sm': 350px, 'md': 540px, 'lg': 760px, 'xl': 1100px, 'xxl': 1200px )
+$grid-gutter-width: 30px
+$container-max-widths: ('sm': map.get($grid-breakpoints, 'md'), 'md': map.get($grid-breakpoints, 'lg'), 'lg': map.get($grid-breakpoints, 'xl'), 'xl': map.get($grid-breakpoints, 'xxl') )
+/* $spacer: 8px /* not worth setting because units must be em
+ * todo: add spacer map to refine:
+ *   module subtitle mt-3 to be 21px not 24px
+ *   content subtitle mb-3 to be 20px not 18px */
+
+/* Import source
+ * https://sass-lang.com/documentation/variables means can import twbs after
+ *   declaring vars
+ */
+@import '../bootstrap/scss/bootstrap'
+
+/* project-specific
+ *
+/* font-face mixin
+ * todo: address path's folder
+ */
+@mixin font-face($name: 'Nunito Sans', $path, $weight: 'normal', $style: null)
+  @font-face
+    font-family: quote($name)
+    src: url(quote('fonts/' + $path)) format('truetype') /* all fonts downloaded as ttf */
+    font-weight: unquote($weight) /* todo: detect numbers */
+    font-style: unquote($style)
+    font-display: swap
+
+/* call all font-face combos
+ * verbosely calls even ones unused in immediate task */
+@include font-face('Nunito Sans', 'NunitoSans-Italic.ttf', 'normal', 'italic')
+@include font-face('Nunito Sans', 'NunitoSans-ExtraBold.ttf', 'bold', 'normal')
+@include font-face('Nunito Sans', 'NunitoSans-BoldItalic.ttf', 'bold', 'italic')
+@include font-face('Nunito Sans', 'NunitoSans-Bold.ttf', 'bold', 'normal')
+@include font-face('Nunito Sans', 'NunitoSans-ExtraBoldItalic.ttf', 'bold', 'italic')
+@include font-face('Nunito Sans', 'NunitoSans-SemiBold.ttf', '600', 'normal')
+@include font-face('Nunito Sans', 'NunitoSans-Black.ttf', '900', 'normal')
+@include font-face('Nunito Sans', 'NunitoSans-SemiBoldItalic.ttf', '600', 'italic')
+@include font-face('Nunito Sans', 'NunitoSans-BlackItalic.ttf', '900', 'italic')
+@include font-face('Nunito Sans', 'NunitoSans-ExtraLightItalic.ttf', '200', 'italic')
+@include font-face('Nunito Sans', 'NunitoSans-Regular.ttf', 'normal', 'normal')
+@include font-face('Nunito Sans', 'NunitoSans-ExtraLight.ttf', '200', 'italic')
+@include font-face('Nunito Sans', 'NunitoSans-LightItalic.ttf', '300', 'italic')
+@include font-face('Nunito Sans', 'NunitoSans-Light.ttf', '300', 'normal')
+@include font-face('Lato', 'Lato-Black.ttf', '900', 'normal')
+@include font-face('Lato', 'Lato-BlackItalic.ttf', '900', 'italic')
+@include font-face('Lato', 'Lato-Bold.ttf', 'bold', 'normal')
+@include font-face('Lato', 'Lato-BoldItalic.ttf', 'bold', 'italic')
+@include font-face('Lato', 'Lato-Italic.ttf', 'normal', 'italic')
+@include font-face('Lato', 'Lato-Light.ttf', '300', 'normal')
+@include font-face('Lato', 'Lato-LightItalic.ttf', '300', 'italic')
+@include font-face('Lato', 'Lato-Regular.ttf', 'normal', 'normal')
+@include font-face('Lato', 'Lato-Thin.ttf', '300', 'normal')
+@include font-face('Lato', 'Lato-ThinItalic.ttf', '300', 'italic')
+
+/* site wide */
+body
+  &.light
+    background-color: $white
+    color: #111
+  background-color: $black
+  color: $white
+  font: 16px/24px Lato, sans-serif
+  .title
+    font: bold normal 32px/40px 'Nunito Sans'
+  .subtitle
+    font: 24px/32px Lato
+  .content
+    .title
+      font: bold normal 20px/28px 'Nunito Sans', sans-serif
+    .subtitle
+      font: 18px/26px Lato
+    .we-hold-these-truths /* todo: class name !: content */
+      font-weight: 300
+    button
+      font: 14px/28px Lato
+      color: #00FFC5
+      background-color: $black
+      border: 0
+      width: 180px
+  /* full width media slider */
+  .full-width
+    .col-lg-5
+      margin-left: calc(-1 * ((100vw - 1200px) / 2))
+      width: calc(41.66% + ((100vw - 1200px) / 2))
+/* add flexslider css */
+@import '../flexslider/flexslider'
+/* adapted from basic-slider-with-custom-navigation */
+.flexslider
+  margin: 0 /* or add .p-0 to same element */
+  .flex-control-nav
+    position: relative
+    bottom: auto
+  .custom-navigation
+    display: table
+    width: 100%
+    table-layout: fixed
+  .custom-navigation > *
+    display: table-cell
+  .custom-navigation > a
+      width: 50px
+  .custom-navigation .flex-next
+    text-align: right
+.flex-control-paging
+  li
+    a
+      width: .5rem
+      height: .5rem
+      background: $gray-600
+      &.flex-active, &:hover
+        background: $white
+        cursor: pointer /* fixes an oddity */
+.flex-control-nav
+  position: initial
+  bottom: initial
+  width: auto
+.custom-navigation
+  width: 16px * 5
+  a
+    text-decoration: none
+    color: $white
+    font-size: .5rem
+    line-height: .5rem
+  .custom-controls-container
+    width: 60px
+    top: 2px /* todo: obviate this line */
+.col-lg-7
+  .custom-navigation
+    margin-left: 16px * 3
